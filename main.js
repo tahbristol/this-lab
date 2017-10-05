@@ -11,9 +11,9 @@ var cake = {
     updateFunction(status)
     setTimeout(() => {
   //console.log(this); this is cakef
-    var s = serve("Happy Eating!", this.customer).bind(cake);
+    var s = serve.call(this, "Happy Eating!", this.customer);
     console.log(s);
-      //updateFunction(serve(this, "Happy Eating!", this.customer))
+      updateFunction(serve.call(this, "Happy Eating!", this.customer))
     }, 2000)
   }
 }
