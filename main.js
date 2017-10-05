@@ -30,13 +30,16 @@ var pie = {
 }
 
 function makeCake() {
-  var updateCakeStatus;
+  var updateCakeStatus = updateStatus;
   mix(updateCakeStatus)
 }
 
 function makePie() {
-  var updatePieStatus;
-  mix(updatePieStatus)
+  var updatePieStatus = updateStatus;;
+
+  mix.call(pie,updatePieStatus)
+   pie.decorate = cake.decorate.call(pie, updatePieStatus);
+
 }
 
 function updateStatus(statusText) {
@@ -52,16 +55,18 @@ function bake(updateFunction) {
 }
 
 function mix(updateFunction) {
-  var status = "Mixing " + this.ingredients.join(", ")
-  setTimeout(function() {
-    bake(updateFunction)
+  console.log(this);
+  var status = "Mixing " + this.ingredients.join(", ");
+  console.log(status)
+  setTimeout(() => {
+    bake.call(this,updateFunction)
   }, 2000)
   updateFunction(status)
 }
 
 function cool(updateFunction) {
   var status = "It has to cool! Hands off!"
-  setTimeout(function() {
+  setTimeout(() => {
     this.decorate(updateFunction)
   }, 2000)
 }
@@ -73,7 +78,7 @@ function makeDessert() {
 
     for(let i = 0; i < buttons.length; i++){
         buttons[i].addEventListener('click', function(e){
-          console.log();
+        //  console.log();
           if (this.innerHTML.split(" ")[1] === "Pie") {
             makePie();
           }else{
@@ -81,11 +86,11 @@ function makeDessert() {
           }
         });
     }
-  console.log(buttons.length);
+  //console.log(buttons.length);
 }
  makeDessert();
 function serve(message, customer) {
   //you shouldn't need to alter this function
-console.log(this);
+//console.log(this);
     return(customer + ", your " + this.name + " is ready to eat! " + message)
 }
