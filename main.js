@@ -69,8 +69,21 @@ function cool(updateFunction) {
 function makeDessert() {
   //add code here to decide which make... function to call
   //based on which link was clicked
-}
+  var buttons = document.getElementsByClassName('js-make');
 
+    for(let i = 0; i < buttons.length; i++){
+        buttons[i].addEventListener('click', function(e){
+          console.log();
+          if (this.innerHTML.split(" ")[1] === "Pie") {
+            makePie();
+          }else{
+            makeCake();
+          }
+        });
+    }
+  console.log(buttons.length);
+}
+ makeDessert();
 function serve(message, customer) {
   //you shouldn't need to alter this function
 console.log(this);
