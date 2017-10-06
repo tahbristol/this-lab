@@ -11,14 +11,13 @@ var cake = {
     updateFunction(status)
     setTimeout(() => {
   //console.log(this); this is cakef
-    var s = serve.call(this, "Happy Eating!", this.customer);
-    console.log(s);
+
       updateFunction(serve.call(this, "Happy Eating!", this.customer))
     }, 2000)
   }
 }
 
-cake.decorate(updateStatus);
+
 
 var pie = {
   name: "Apple Pie",
@@ -31,7 +30,7 @@ var pie = {
 
 function makeCake() {
   var updateCakeStatus = updateStatus;
-  mix(updateCakeStatus)
+  mix.call(cake, updateCakeStatus)
 }
 
 function makePie() {
@@ -44,20 +43,24 @@ function makePie() {
 
 function updateStatus(statusText) {
 //console.log(this); this is cake
+
+console.log(statusText);
   document.getElementsByClassName("status")[0].innerText = statusText
 }
 
 function bake(updateFunction) {
   var status = "Baking at " + this.bakeTemp + " for " + this.bakeTime
-  setTimeout(function() {
+  setTimeout(() => {
     cool(updateFunction)
   }, 2000)
 }
 
 function mix(updateFunction) {
-  console.log(this);
+  console.log(this
+  ); //this is the dessert
   var status = "Mixing " + this.ingredients.join(", ");
-  console.log(status)
+  //console.log(status)
+  updateFunction(status);
   setTimeout(() => {
     bake.call(this,updateFunction)
   }, 2000)
@@ -66,9 +69,15 @@ function mix(updateFunction) {
 
 function cool(updateFunction) {
   var status = "It has to cool! Hands off!"
-  setTimeout(() => {
-    this.decorate(updateFunction)
-  }, 2000)
+
+  if(this === "cake"){
+    setTimeout(() => {
+        //console.log(this);
+      //cake.decorate(this, updateFunction)
+    }, 2000)
+  }else {
+      updateFunction(status);
+  }
 }
 
 function makeDessert() {
